@@ -12,9 +12,17 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,
-            'content' => $this->faker->paragraph(5),
-            'status' => $this->faker->randomElement(['draft', 'published'])
+            'title' => [
+                'en' => $this->faker->sentence(),
+                'de' => $this->faker->sentence(),
+                'fr' => $this->faker->sentence(),
+            ],
+            'content' => [
+                'en' => $this->faker->paragraph(5),
+                'de' => $this->faker->paragraph(5),
+                'fr' => $this->faker->paragraph(5),
+            ],
+            'status' => $this->faker->randomElement(['draft', 'published']),
         ];
     }
 

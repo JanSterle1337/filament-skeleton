@@ -7,6 +7,7 @@ use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager
 use App\Models\Post;
 use Doctrine\DBAL\Schema\Column;
 use Filament\Actions\Exports\ExportColumn;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -20,16 +21,25 @@ use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class PostResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'de', 'fr']; // your supported languages
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->required(),
-                Forms\Components\Textarea::make('content')->required(),
+                Forms\Components\TextInput::make('title')
+                    ->required(),
+                Forms\Components\Textarea::make('content')
+                    ->required(),
                 Forms\Components\Select::make('status')
                 ->options([
                     'draft' => 'Draft',
