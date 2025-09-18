@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Models\Post;
+use Doctrine\DBAL\Schema\Column;
+use Filament\Actions\Exports\ExportColumn;
 use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class PostResource extends Resource
 {
@@ -50,7 +54,14 @@ class PostResource extends Resource
             ])
             ->filters(static::getTableFilters())
             ->actions(static::getTableActions())
-            ->bulkActions([]);
+            ->bulkActions([
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make()->withColumns([
+                        \pxlrbt\FilamentExcel\Columns\Column::make('title'),
+                        \pxlrbt\FilamentExcel\Columns\Column::make('status')
+                    ])
+                ])
+            ]);
     }
 
     public static function getTableFilters(): array
