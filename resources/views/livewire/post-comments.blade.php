@@ -1,7 +1,4 @@
 <div>
-    <h1 style="font-size: 40px;">post-comments.blade.php</h1>
-   <h2 class="text-lg font-bold mb-3">Comments</h2>
-
     @foreach($comments as $comment)
         <x-comment :comment="$comment" />
     @endforeach

@@ -1,5 +1,4 @@
 <div class="border-l pl-4 my-2">
-    <h1 style="font-size: 40px;">Comment.blade.php</h1>
     <div>
         <strong>{{ $comment->author->name ?? 'Anonymous' }}</strong>
         <span class="text-gray-500 text-xs">{{$comment->created_at->diffForHumans()}}</span>
